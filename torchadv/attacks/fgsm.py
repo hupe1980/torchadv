@@ -18,9 +18,9 @@ class FGSM(Attack):
         - https://arxiv.org/abs/1412.6572
     """
 
-    eps: float = 8/255  # Maximum perturbation magnitude
+    eps: float = 8 / 255  # Maximum perturbation magnitude
     norm: float | int = np.inf  # Norm to use for perturbation calculation
-    clip_min: float | None = None # Minimum value for clipping adversarial examples
+    clip_min: float | None = None  # Minimum value for clipping adversarial examples
     clip_max: float | None = None  # Maximum value for clipping adversarial examples
     criterion: Callable = field(
         default_factory=lambda: torch.nn.CrossEntropyLoss()

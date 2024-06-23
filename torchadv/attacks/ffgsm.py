@@ -18,8 +18,8 @@ class FFGSM(Attack):
         - https://arxiv.org/abs/2001.03994
     """
 
-    eps: float = 8/255  # Maximum perturbation magnitude
-    alpha: float = 10/255 # Step size for gradient update
+    eps: float = 8 / 255  # Maximum perturbation magnitude
+    alpha: float = 10 / 255  # Step size for gradient update
     norm: float | int = np.inf  # Norm to use for perturbation calculation
     clip_min: float | None = None  # Minimum value for clipping adversarial examples
     clip_max: float | None = None  # Maximum value for clipping adversarial examples
@@ -47,10 +47,10 @@ class FFGSM(Attack):
 
         # Add random noise for initialization
         adv = inputs + torch.randn_like(inputs).uniform_(-self.eps, self.eps)
-        
+
         # Clip adversarial example to ensure it stays within specified bounds
         adv = clip_tensor(adv, min_val=self.clip_min, max_val=self.clip_max)
-        
+
         # Enable gradient computation on adversarial example
         adv.requires_grad = True
 

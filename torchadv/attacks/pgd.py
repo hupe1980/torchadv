@@ -20,7 +20,7 @@ class PGD(Attack):
         - https://arxiv.org/pdf/1706.06083.pdf
     """
 
-    eps: float = 8/255  # Maximum perturbation magnitude
+    eps: float = 8 / 255  # Maximum perturbation magnitude
     norm: float | int = np.inf  # Norm to use for perturbation calculation
     rand_init: bool = True  # Flag indicating whether to use random initialization
     rand_minmax: float | None = None  # Range for random initialization
@@ -29,7 +29,7 @@ class PGD(Attack):
     criterion: Callable = field(
         default_factory=lambda: torch.nn.CrossEntropyLoss()
     )  # Loss criterion for computing the adversarial loss
-    alpha: float = 2/255  # Step size for each iteration of PGD
+    alpha: float = 2 / 255  # Step size for each iteration of PGD
     steps: int = 10  # Number of iterations for PGD
 
     def __post_init__(self) -> None:

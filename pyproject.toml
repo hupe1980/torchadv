@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "torchadv"
-version = "0.0.2"
+version = "0.0.3"
 description = "Tiny package designed to support red teams and penetration testers in creating and analyzing adversarial attacks on PyTorch models."
 authors = ["hupe1980"]
 repository = "https://github.com/hupe1980/torchadv"
