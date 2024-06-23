@@ -5,7 +5,6 @@ TorchAdv is a Python package designed to facilitate the creation and execution o
 ## Features
 
 - **Adversarial Attacks**: Implementations of popular adversarial attacks such as FGSM, PGD, and more.
-- **Surrogate Models**: Tools for creating and using surrogate models to enhance attack success rates.
 - **Compatibility**: Designed to work seamlessly with PyTorch models.
 - **Customizable**: Easily extendable to include new attack methods or custom functionality.
 

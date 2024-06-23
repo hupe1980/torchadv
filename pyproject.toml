@@ -17,6 +17,40 @@ jupyter = "^1.0.0"
 torchvision = "^0.18.1"
 pillow = "^10.3.0"
 tqdm = "^4.66.4"
+mypy = "^1.10.0"
+ruff = "^0.4.10"
+black = "^24.4.2"
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[tool.black]
+skip-string-normalization = true
+line-length = 120
+
+[tool.ruff]
+# Same as Black.
+line-length = 120
+
+lint.select = [
+    "E",  # pycodestyle errors (settings from FastAPI, thanks, @tiangolo!)
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+]
+lint.ignore = [
+    "E501",  # line too long, handled by black
+    "C901",  # too complex
+]
+
+[tool.ruff.lint.isort]
+order-by-type = true
+relative-imports-order = "closest-to-furthest"
+extra-standard-library = ["typing"]
+section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]
+known-first-party = []
 
 [build-system]
 requires = ["poetry-core"]

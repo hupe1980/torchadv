@@ -1,11 +1,13 @@
-from typing import Callable
 from dataclasses import dataclass, field
-import torch
+from typing import Callable
+
 import numpy as np
+import torch
 
 from .fgsm import FGSM
 from ..attack import Attack
 from ..utils import clip_tensor
+
 
 @dataclass(kw_only=True)
 class PGD(Attack):
@@ -15,7 +17,7 @@ class PGD(Attack):
     rand_minmax: float | None = None
     clip_min: float | None = None
     clip_max: float | None = None
-    criterion: Callable = field(default_factory=lambda:torch.nn.CrossEntropyLoss())
+    criterion: Callable = field(default_factory=lambda: torch.nn.CrossEntropyLoss())
     eps_iter: float = 0.01
     steps: int = 40
 
@@ -28,22 +30,22 @@ class PGD(Attack):
             eps=self.eps_iter,
             norm=self.norm,
             clip_min=self.clip_min,
-            clip_max=self.clip_max, 
-            criterion=self.criterion, 
+            clip_max=self.clip_max,
+            criterion=self.criterion,
         )
 
     def _call_impl(self, inputs: torch.Tensor, labels: torch.Tensor | None = None, **kwargs):
         if self.rand_init:
-            eta = torch.zeros_like(inputs).uniform_(-self.rand_minmax, self.rand_minmax) # type: ignore[operator, arg-type]
-        else:    
+            eta = torch.zeros_like(inputs).uniform_(-self.rand_minmax, self.rand_minmax)  # type: ignore[operator, arg-type]
+        else:
             eta = torch.zeros_like(inputs)
 
         eta = torch.clamp(eta, min=-self.eps, max=self.eps)
-        
+
         adv_x = inputs + eta
 
         adv_x = clip_tensor(adv_x, min_val=self.clip_min, max_val=self.clip_max)
-        
+
         for _ in range(self.steps):
             adv_x = self._fgsm(inputs=adv_x, labels=labels)
 
@@ -55,5 +57,5 @@ class PGD(Attack):
             # Although FGSM initially handled this, the subtraction and re-application of eta
             # can introduce minor numerical errors.
             adv_x = clip_tensor(adv_x, min_val=self.clip_min, max_val=self.clip_max)
-        
+
         return adv_x

@@ -1,10 +1,12 @@
-from typing import Callable
 from dataclasses import dataclass, field
-import torch
+from typing import Callable
+
 import numpy as np
+import torch
 
 from ..attack import Attack
-from ..utils import normalize_gradients, clip_tensor
+from ..utils import clip_tensor, normalize_gradients
+
 
 @dataclass(kw_only=True)
 class FGSM(Attack):
@@ -12,11 +14,11 @@ class FGSM(Attack):
     norm: float | int = np.inf
     clip_min: float | None = None
     clip_max: float | None = None
-    criterion: Callable = field(default_factory=lambda:torch.nn.CrossEntropyLoss())
+    criterion: Callable = field(default_factory=lambda: torch.nn.CrossEntropyLoss())
 
     def _call_impl(self, inputs: torch.Tensor, labels: torch.Tensor | None = None, **kwargs):
         inputs = inputs.clone().detach().requires_grad_(True)
-        
+
         is_targeted = labels is not None
         if not is_targeted:
             _, labels = torch.max(self.get_logits(inputs), 1)
@@ -26,11 +28,9 @@ class FGSM(Attack):
         if is_targeted:
             loss = -loss
 
-        grad = torch.autograd.grad(
-            loss, inputs, retain_graph=False, create_graph=False
-        )[0]
-        
-        optimal_perturbation = normalize_gradients(grad, self.norm) * self.eps 
+        grad = torch.autograd.grad(loss, inputs, retain_graph=False, create_graph=False)[0]
+
+        optimal_perturbation = normalize_gradients(grad, self.norm) * self.eps
 
         # Add perturbation to original example to obtain adversarial example
         adv_x = inputs + optimal_perturbation

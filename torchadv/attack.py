@@ -1,9 +1,11 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
+
 import torch
 import torch.nn as nn
 
 from .utils import get_model_device
+
 
 @dataclass()
 class Attack(ABC):
@@ -18,6 +20,6 @@ class Attack(ABC):
     @abstractmethod
     def _call_impl(self, inputs: torch.Tensor, labels: torch.Tensor | None = None, **kwargs):
         raise NotImplementedError
-    
+
     def get_logits(self, inputs: torch.Tensor, **kwargs):
         return self.model(inputs, **kwargs)
