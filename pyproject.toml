@@ -3,8 +3,29 @@ name = "torchadv"
 version = "0.0.1"
 description = ""
 authors = ["hupe1980"]
+repository = "https://github.com/hupe1980/torchadv"
+homepage = "https://github.com/hupe1980/torchadv"
 license = "MIT"
 readme = "README.md"
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Topic :: Security",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+keywords = [
+    "security",
+    "ai",
+    "pentest",
+    "red-team",
+    "responsible-ai",
+    "red-team-tools",
+    "ai-red-team",
+    "adversarial-attacks",
+    "pytorch",
+    "deep-learning",
+]
 
 [tool.poetry.dependencies]
 python = "^3.12"
