@@ -3,6 +3,7 @@ import torch
 
 from torchadv.utils import clip_tensor
 
+
 @pytest.fixture
 def input_tensor():
     return torch.tensor([-1.0, 0.5, 2.0, 3.0, 4.0])
