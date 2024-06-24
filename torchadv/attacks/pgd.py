@@ -30,7 +30,7 @@ class PGD(Attack):
         default_factory=lambda: torch.nn.CrossEntropyLoss()
     )  # Loss criterion for computing the adversarial loss
     alpha: float = 2 / 255  # Step size for each iteration of PGD
-    steps: int = 10  # Number of iterations for PGD
+    steps: int = 40  # Number of iterations for PGD
 
     def __post_init__(self) -> None:
         """
