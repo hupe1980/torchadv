@@ -4,8 +4,8 @@ from typing import Callable
 import numpy as np
 import torch
 
+from .attack import Attack
 from .fgsm import FGSM
-from ..attack import Attack
 from ..utils import clip_tensor
 
 

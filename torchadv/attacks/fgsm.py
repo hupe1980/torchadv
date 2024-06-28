@@ -4,7 +4,7 @@ from typing import Callable
 import numpy as np
 import torch
 
-from ..attack import Attack
+from .attack import Attack
 from ..utils import clip_tensor, normalize_gradients
 
 
@@ -42,7 +42,7 @@ class FGSM(Attack):
 
         is_targeted = labels is not None
         if not is_targeted:
-            _, labels = torch.max(self.get_logits(inputs), 1)
+            labels = self.predict_labels(inputs)
 
         loss = self.criterion(self.get_logits(inputs), labels)
 
