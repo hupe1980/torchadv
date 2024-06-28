@@ -13,6 +13,7 @@ class POSTagger:
         self.library = library.lower()
 
         if self.library == "nltk":
+            nltk.download('punkt', quiet=True)
             nltk.download('averaged_perceptron_tagger', quiet=True)
 
         elif self.library == "stanza":
